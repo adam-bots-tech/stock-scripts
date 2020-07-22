@@ -24,7 +24,7 @@ RISK = 2.0
 
 #ACCOUNT MANAGEMENT
 BASE_ACCOUNT_BALANCE = 5000
-MAX_AMOUNT_SPENT_PER_TRADE = 2000
+MAX_PERCENTAGE_OF_ACCOUNT_PER_TRADE = 50.0
 
 #VOLATILITY OF CANDLESTICKS
 #Chance of a gain or loss occuring for each candlestick's dice roll. Both numbers should equal 100.0
@@ -38,7 +38,7 @@ CHANCE_OF_LOSS = 45.0
 CANDLESTICK_FLUX = 1.0
 
 #STOCK
-BASE_STOCK_PRICE = 10.0
+BASE_STOCK_PRICE = 20.0
 
 ####### CODE STARTS HERE #########
 
@@ -94,7 +94,7 @@ class Account:
 		self.balance += (trade.sale_price * trade.shares)
 
 	def create_trade(self):
-		max_trade_amount = -(self.balance - MAX_AMOUNT_SPENT_PER_TRADE) if (self.balance - MAX_AMOUNT_SPENT_PER_TRADE) < 0 else MAX_AMOUNT_SPENT_PER_TRADE
+		max_trade_amount = self.balance * (MAX_PERCENTAGE_OF_ACCOUNT_PER_TRADE / 100)
 
 		shares_to_buy = max_trade_amount / BASE_STOCK_PRICE
 		if (self.balance - (shares_to_buy * BASE_STOCK_PRICE) <= 0):
