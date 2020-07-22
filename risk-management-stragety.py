@@ -19,26 +19,20 @@ NUM_OF_SERIES = 10
 
 #RISK MANAGEMENT STRAGETY
 #Reward:Risk ratio
-REWARD = 3.0
-RISK = 1.0
+REWARD = 6.0
+RISK = 2.0
 
 #ACCOUNT MANAGEMENT
 BASE_ACCOUNT_BALANCE = 5000
 MAX_AMOUNT_SPENT_PER_TRADE = 2000
-
-#Number of concurrent trades to have open at one time before closing for profit or loss. 
-#This controls how much of the account is invested in the market as a whole at one time.
-#If set to 1, each trade will be executed linearly and the gain or loss will be taken before calculating the next
-#trade from the account total as a whole.
-CONCURRENT_TRADES = 2
 
 #VOLATILITY OF CANDLESTICKS
 #Chance of a gain or loss occuring for each candlestick's dice roll. Both numbers should equal 100.0
 # If 50.0 and 50.0, then the market is kangaroo or flat.
 # If 70.0 and 30.0, then the market is on a bullish trend.
 # If 30.0 and 70.0, then the market is on a bearish trend.
-CHANCE_OF_GAIN = 60.0
-CHANCE_OF_LOSS = 40.0
+CHANCE_OF_GAIN = 55.0
+CHANCE_OF_LOSS = 45.0
 #Volatility of price movement for the gain or loss of a candlestick. 
 #What is the max percentage a price can move, in either direction, per candlestick?
 CANDLESTICK_FLUX = 1.0
@@ -119,28 +113,23 @@ for series_num in range(1, NUM_OF_SERIES + 1):
 	account = Account()
 	print(f"\tAccount Opened: ${account.balance}")
 
-	for trade_num in range(1, int((NUM_OF_TRADES / CONCURRENT_TRADES) + 1)):
-		trades = []
+	for trade_num in range(1, NUM_OF_TRADES + 1):
 
-		for concurrent_num in range (1, CONCURRENT_TRADES + 1):
-			trade = account.create_trade()
+		trade = account.create_trade()
 
-			# We cannot create new trades if the account balance is zero or below
-			if (trade == False):
-				break
-			else:
-				trades.append(trade)
+		# We cannot create new trades if the account balance is zero or below
+		if (trade == False):
+			break
 
-		for trade in trades:
-			stock_price = BASE_STOCK_PRICE
+		stock_price = BASE_STOCK_PRICE
 
-			while trade.closed == False:
-				candlestick = Candlestick(stock_price)
-				stock_price = candlestick.roll()
-				trade.check_candlestick(candlestick)
+		while trade.closed == False:
+			candlestick = Candlestick(stock_price)
+			stock_price = candlestick.roll()
+			trade.check_candlestick(candlestick)
 
-			print(f"\t\tTrade Completed (Sale Price: ${round(trade.sale_price, 3)}, Shares: {round(trade.shares, 2)}, Price Change: {round(trade.price_change_percentage, 2)}%, Candlesticks: {trade.candlesticks})")
-			account.take_tendies(trade)
+		print(f"\t\tTrade Completed (Sale Price: ${round(trade.sale_price, 3)}, Shares: {round(trade.shares, 2)}, Price Change: {round(trade.price_change_percentage, 2)}%, Candlesticks: {trade.candlesticks})")
+		account.take_tendies(trade)
 
 	series.append(account)
 	print(f"\tAccount Closed: ${round(account.balance, 2)}")
