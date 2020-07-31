@@ -1,0 +1,18 @@
+{
+  "ticker": "TSLA",
+  "sector": "Consumer Cylical",
+  "source_of_trade": "Finnvizz",
+  "reasoning": "Chart pattern",
+  "technical_indicators": {
+    "RSI": "100"
+  },
+  "entry": 1000,
+  "exit": 1400,
+  "comments": "",
+  "stop_loss": 900.0,
+  "risk": 1,
+  "reward": 3,
+  "actual_entry": 0,
+  "actual_exit": 0,
+  "profit_loss": 0
+}
