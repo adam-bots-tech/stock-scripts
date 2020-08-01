@@ -4,27 +4,23 @@ import json
 import webbrowser
 import tradequery
 import template
-
-DATA_FOLDER = "D:\\development\\data\\"
-DATABASE = "trades.db"
-REPORT = "report.html"
-TRADE = "trade.json"
+import configuration
 
 def open_trade():
 	trade = {}
-	with open(TRADE) as file:
+	with open(configuration.TRADE) as file:
 		trade = json.load(file)
 	return trade
 
 def write_trade(trade):
-	with open(TRADE, 'w') as file:
+	with open(configuration.TRADE, 'w') as file:
 		json.dump(trade, file, indent=2)
 
 class Trades:
 
 	def __init__(self):
-		print(f"Database: {DATA_FOLDER + DATABASE}")
-		self.conn = sqlite3.connect(DATA_FOLDER + DATABASE)
+		print(f"Database: {configuration.DATA_FOLDER + configuration.DATABASE}")
+		self.conn = sqlite3.connect(configuration.DATA_FOLDER + configuration.DATABASE)
 		self.cursor = self.conn.cursor()
 
 		self.cursor.execute(
@@ -114,10 +110,10 @@ class Trades:
 
 			html += "</tr>"
 
-		rendered_html = template.get(REPORT).render(rows=html)
+		rendered_html = template.get(configuration.REPORT).render(rows=html)
 
-		with open(DATA_FOLDER+REPORT, 'w') as file:
+		with open(configuration.DATA_FOLDER+configuration.REPORT, 'w') as file:
 			file.write(rendered_html)
 
-		webbrowser.open(DATA_FOLDER+REPORT, new=2)
+		webbrowser.open(configuration.DATA_FOLDER+configuration.REPORT, new=2)
 

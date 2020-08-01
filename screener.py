@@ -1,17 +1,16 @@
 import template
 import webbrowser
+import configuration
 
 TICKER = "TSLA"
 
 # CODE BEGINS HERE
-DATA_FOLDER = "D:\\development\\data\\"
-REPORT = "screener.html"
 
-rendered_html = template.get(REPORT).render(
+rendered_html = template.get(configuration.SCREENER).render(
 	ticker=TICKER)
 
-with open(DATA_FOLDER+REPORT, 'w') as file:
+with open(configuration.DATA_FOLDER+configuration.SCREENER, 'w') as file:
 	file.write(rendered_html)
 
-webbrowser.open(DATA_FOLDER+REPORT, new=2)
+webbrowser.open(configuration.DATA_FOLDER+configuration.SCREENER, new=2)
 
