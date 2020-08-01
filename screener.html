@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<style>
+			table, td {
+				border: 1px solid black;
+				padding: 5px;
+			}
+			th {
+				font-weight: black;
+				border: 1px solid black;
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>{{ ticker }}</h1>
+		<h2>Total Revenue</h2>
+		<h3>Annual</h3>
+		<table>
+			<tr>
+				<th>Year</th>
+				<th>Total Revenue</th>
+			</tr>
+			{{ annual_revenue_rows }}
+		</table>
+		<h3>Quarterly</h3>
+		<table>
+			<tr>
+				<th>Quarter</th>
+				<th>Total Revenue</th>
+			</tr>
+			{{ quarterly_revenue_rows }}
+		</table>
+	</body>
+</html>

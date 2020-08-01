@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<style>
+			table, td {
+				border: 1px solid black;
+				padding: 5px;
+			}
+			th {
+				font-weight: black;
+				border: 1px solid black;
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Ticker</th>
+				<th>Sector</th>
+				<th>Source</th>
+				<th>Reasoning</th>
+				<th>Technical Indicator</th>
+				<th>Entry</th>
+				<th>Exit</th>
+				<th>Stop Loss</th>
+				<th>Risk</th>
+				<th>Reward</th>
+				<th>Actual Entry</th>
+				<th>Actual Exit</th>
+				<th>Profit/Loss</th>
+				<th>Comments</th>
+			</tr>
+			{{ rows }}
+		</table>
+	</body>
+</html>

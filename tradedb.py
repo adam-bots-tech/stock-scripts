@@ -3,6 +3,7 @@ import time
 import json
 import webbrowser
 import tradequery
+import template
 
 DATA_FOLDER = "D:\\development\\data\\"
 DATABASE = "trades.db"
@@ -103,42 +104,7 @@ class Trades:
 
 	def report(self, parameters):
 		sql = self.search(parameters)
-
-		html = """
-			<html>
-				<head>
-					<style>
-						table, td {
-  							border: 1px solid black;
-  							padding: 5px;
-						}
-						th {
-							font-weight: black;
-							border: 1px solid black;
-  							padding: 5px;
-						}
-					</style>
-				</head>
-				<body>
-					<table>
-						<tr>
-							<th>ID</th>
-							<th>Ticker</th>
-							<th>Sector</th>
-							<th>Source</th>
-							<th>Reasoning</th>
-							<th>Technical Indicator</th>
-							<th>Entry</th>
-							<th>Exit</th>
-							<th>Stop Loss</th>
-							<th>Risk</th>
-							<th>Reward</th>
-							<th>Actual Entry</th>
-							<th>Actual Exit</th>
-							<th>Profit/Loss</th>
-							<th>Comments</th>
-						</tr>
-		"""
+		html = ""
 
 		for row in self.cursor.execute(sql):
 			html += "<tr>"
@@ -148,14 +114,10 @@ class Trades:
 
 			html += "</tr>"
 
-		html += """
-					</table>
-				</body>
-			</html>
-		"""
+		rendered_html = template.get(REPORT).render(rows=html)
 
 		with open(DATA_FOLDER+REPORT, 'w') as file:
-			file.write(html)
+			file.write(rendered_html)
 
 		webbrowser.open(DATA_FOLDER+REPORT, new=2)
 
