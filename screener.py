@@ -29,6 +29,7 @@ stock_profiles = []
 
 # Determine what industry the stock is in so we can get competitors for comparison.
 stock = finviz.get_stock(TICKER)
+print(stock)
 stock_profiles.append(build_profile(TICKER, stock))
 
 screener_filter = "ind_" + re.sub(r'\W+', '', stock['Industry']).lower()
@@ -52,8 +53,8 @@ for screened_stock in screened_stocks:
 rendered_html = template.get(configuration.INDUSTRY_SCREENER).render(
 	ticker=TICKER, stocks=stock_profiles)
 
-with open(configuration.DATA_FOLDER+configuration.SCREENER, 'w') as file:
+with open(configuration.DATA_FOLDER+configuration.INDUSTRY_SCREENER, 'w') as file:
 	file.write(rendered_html)
 
-webbrowser.open(configuration.DATA_FOLDER+configuration.SCREENER, new=2)
+webbrowser.open(configuration.DATA_FOLDER+configuration.INDUSTRY_SCREENER, new=2)
 
