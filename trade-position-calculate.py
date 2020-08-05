@@ -1,6 +1,5 @@
 import math
 import json
-import tradedb
 
 #VARIABLES
 
@@ -14,9 +13,13 @@ BALANCE = 50000
 #Percentage of Account to Leverage
 LEVERAGE_PERC = 5.0
 
-#CODE STARTS HERE
-TRADE = tradedb.open_trade()
+TRADE = {
+  "ticker": "TSLA",
+  "entry": 1000,
+  "exit": 1400,
+}
 
+#CODE STARTS HERE
 max_trade_amount = BALANCE * (LEVERAGE_PERC / 100)
 print(f"Max Amount Traded: ${round(max_trade_amount, 2)}")
 
@@ -50,11 +53,9 @@ print(f"LOSS: ${round(loss, 2)}")
 print("\nTRADE JSON:\n")
 
 TRADE["stop_loss"] = stop_loss
-TRADE["risk"] = RISK
-TRADE["reward"] = REWARD
-TRADE["actual_entry"] = 0
-TRADE["actual_exit"] = 0
-TRADE["profit_loss"] = 0
+TRADE["risk"] = loss
+TRADE["reward"] = reward
+TRADE["shares"] = shares
+TRADE["cost"] = amount_spent
 
 print(json.dumps(TRADE, indent=2))
-tradedb.write_trade(TRADE)
