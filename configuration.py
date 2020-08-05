@@ -1,5 +1,5 @@
 DATA_FOLDER = "D:\\development\\data\\"
-SCREENER = "screener.html"
+INDUSTRY_SCREENER = "stock-industry-comparison.html"
 DATABASE = "trades.db"
 REPORT = "report.html"
 TRADE = "trade.json"

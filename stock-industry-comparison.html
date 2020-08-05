@@ -1,0 +1,97 @@
+<html>
+	<head>
+		<style>
+			table, td {
+				border: 1px solid black;
+				padding: 5px;
+			}
+			th {
+				font-weight: black;
+				border: 1px solid black;
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>Ticker</td>
+				{% for value in range(0,6) %}
+				<td><b>{{ stocks[value]['ticker'] }}</b></td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Name</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['name'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Sales</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['sales'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Income</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['income'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Volume</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['vol'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Average Volume</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['avg_vol'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Market Cap</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['mc'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>P/E</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['pe'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Forward P/E</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['forward_pe'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>EPS</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['eps'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>EPS Next Quarter</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['eps_q'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>52 Week Trading Range</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['52w'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>ROE</td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['roe'] }}</td>
+				{% endfor %}
+			</tr>
+		</table>
+	</body>
+</html>

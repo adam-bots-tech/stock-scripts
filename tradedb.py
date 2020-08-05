@@ -8,12 +8,12 @@ import configuration
 
 def open_trade():
 	trade = {}
-	with open(configuration.TRADE) as file:
+	with open(configuration.DATA_FOLDER + configuration.TRADE) as file:
 		trade = json.load(file)
 	return trade
 
 def write_trade(trade):
-	with open(configuration.TRADE, 'w') as file:
+	with open(configuration.DATA_FOLDER + configuration.TRADE, 'w') as file:
 		json.dump(trade, file, indent=2)
 
 class Trades:
