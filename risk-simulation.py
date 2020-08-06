@@ -19,8 +19,8 @@ NUM_OF_SERIES = 10
 
 #RISK MANAGEMENT STRAGETY
 #Reward:Risk ratio
-REWARD = 3.0
-RISK = 1.0
+REWARD = 9.0
+RISK = 3.0
 
 #ACCOUNT MANAGEMENT
 BASE_ACCOUNT_BALANCE = 5000
@@ -31,11 +31,11 @@ MAX_PERCENTAGE_OF_ACCOUNT_PER_TRADE = 10.0
 # If 50.0 and 50.0, then the market is kangaroo or flat.
 # If 70.0 and 30.0, then the market is on a bullish trend.
 # If 30.0 and 70.0, then the market is on a bearish trend.
-CHANCE_OF_GAIN = 60.0
-CHANCE_OF_LOSS = 40.0
+CHANCE_OF_GAIN = 52.0
+CHANCE_OF_LOSS = 48.0
 #Volatility of price movement for the gain or loss of a candlestick. 
 #What is the max percentage a price can move, in either direction, per candlestick?
-CANDLESTICK_FLUX = 1.0
+CANDLESTICK_FLUX = 0.5
 
 #STOCK
 BASE_STOCK_PRICE = 10.0

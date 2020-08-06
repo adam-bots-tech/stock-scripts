@@ -2,7 +2,9 @@
 TICKER = 'TSLA'
 ENTRY = 1000
 EXIT = 1400
+BALANCE = 5000
+LEVERAGE = 10.0
 
 #CODE BEGINS HERE
 import trades
-trades.position(TICKER, ENTRY, EXIT)
+trades.position(TICKER, ENTRY, EXIT, BALANCE, LEVERAGE)

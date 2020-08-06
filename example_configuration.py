@@ -13,5 +13,3 @@ REDDIT_USER_AGENT='User-Agent: <OS>:<PACKAGE NAME>:v<VERSION #.#.#> (by /u/<REDD
 #Simulation properties
 REWARD = 3
 RISK = 1
-BALANCE = 5000
-LEVERAGE_PERC = 10.0

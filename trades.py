@@ -2,7 +2,7 @@ import math
 import json
 import configuration
 
-def position(ticker, entry, exit):
+def position(ticker, entry, exit, balance, leverage):
 
 	TRADE = {
 	  "ticker": ticker,
@@ -11,7 +11,7 @@ def position(ticker, entry, exit):
 	}
 
 	#CODE STARTS HERE
-	max_trade_amount = configuration.BALANCE * (configuration.LEVERAGE_PERC / 100)
+	max_trade_amount = balance * (leverage / 100)
 	print(f"Max Amount Traded: ${round(max_trade_amount, 2)}")
 
 	shares = math.floor(max_trade_amount / TRADE['entry'])
