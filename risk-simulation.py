@@ -41,7 +41,6 @@ CANDLESTICK_FLUX = 1.0
 BASE_STOCK_PRICE = 10.0
 
 ####### CODE STARTS HERE #########
-
 random.seed(time.time())
 
 class Candlestick:

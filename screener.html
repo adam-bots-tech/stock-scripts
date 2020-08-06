@@ -13,87 +13,219 @@
 		</style>
 	</head>
 	<body>
+		<h1>{{ stocks[0]['ticker'] }} - {{ stocks[0]['price'] }}</h1>
+		<img src="https://finviz.com/chart.ashx?t={{ stocks[0]['ticker'] }}&ty=c&ta=1&p=d&s=l" />
+		<h2>Fundamentals</h2>
 		<table>
-			<h1>{{ stocks[0]['ticker'] }}</h1>
-			<h2>Fundamentals Comparison - Top 5 Companies in Industry
 			<tr>
-				<td>Ticker</td>
+				<td><i>Ticker</i></td>
 				{% for value in range(0,6) %}
 				<td><b>{{ stocks[value]['ticker'] }}</b></td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Name</td>
+				<td><i>Name</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['name'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Sales</td>
+				<td><i>Sales</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['sales'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Income</td>
+				<td><i>Income</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['income'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Volume</td>
+				<td><i>Volume</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['vol'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Average Volume</td>
+				<td><i>Average Volume</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['avg_vol'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Market Cap</td>
+				<td><i>Shares Outstanding</i></td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['shares'] }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td><i>Market Cap</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['mc'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>P/E</td>
+				<td><i>P/E</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['pe'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>Forward P/E</td>
+				<td><i>Forward P/E</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['forward_pe'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>EPS</td>
+				<td><i>EPS</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['eps'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>EPS Next Quarter</td>
+				<td><i>EPS Next Quarter</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['eps_q'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>52 Week Trading Range</td>
+				<td><i>52 Week Trading Range</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['52w'] }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
-				<td>ROE</td>
+				<td><i>ROE</i></td>
 				{% for value in range(0,6) %}
 				<td>{{ stocks[value]['roe'] }}</td>
 				{% endfor %}
 			</tr>
+			<tr>
+				<td><i>Debt to Equity</i></td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['debt_eq'] }}</td>
+				{% endfor %}
+			</tr>
+		</table>
+		<div style="display: grid; grid-gap:20px;">
+			<div style="grid-row: 1;">
+				<h2>Price Analysis</h2>
+				<table>
+					<tr>
+						<th>Date</th>
+						<th>Analyst</th>
+						<th>Rating</th>
+						<th>Action</th>
+					</tr>
+					{% for price in price_analysis %}
+					<tr>
+						<td>{{ price['date'] }}</td>
+						<td>{{ price['analyst'] }}</td>
+						<td>{{ price['rating'] }}</td>
+						<td>{{ price['price_to'] }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div style="grid-row: 1;">
+				<h2>Technicals</h2>
+				<table>
+					<tr>
+						<td><i>Ticker</i></td>
+						{% for value in range(0,6) %}
+						<td><b>{{ stocks[value]['ticker'] }}</b></td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>Price</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['price'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>20 SMA</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['SMA20'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>50 SMA</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['SMA50'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>200 SMA</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['SMA200'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>Short Percentage</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['short_perc'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>RSI</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['rsi'] }}</td>
+						{% endfor %}
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div style="display: grid;">
+			<div style="grid-row: 1;">
+				<img src='news-sentiment.png' />
+			</div>
+			<div style="grid-row: 1;">
+				<img src='twits-sentiment.png' />
+			</div>
+			<div style="grid-row: 2;">
+				<img src='wsb-scores.png' />
+			</div>
+			<div style="grid-row: 2;">
+				<img src='wsb-options.png' />
+			</div>
+		</div>
+		<h2>News</h2>
+		<table>
+			<tr>
+				<th>Title</th>
+				<th>Link</th>
+			</tr>
+			{% for article in news %}
+			<tr>
+				<td>{{ article['title'] }}</td>
+				<td><a href="{{ article['link'] }}">{{ article['link'] }}</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+		<h2>WSB Submissions</h2>
+		<table>
+			<tr>
+				<th>Title</th>
+				<th>Link</th>
+			</tr>
+			{% for article in wsb %}
+			<tr>
+				<td>{{ article['title'] }}</td>
+				<td><a href="{{ article['link'] }}">{{ article['link'] }}</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+		<h2>Stock Twits</h2>
+		<table>
+			<tr>
+				<th>Twit</th>
+			</tr>
+			{% for twit in twits %}
+			<tr>
+				<td>{{ twit }}</td>
+			</tr>
+			{% endfor %}
 		</table>
 	</body>
 </html>

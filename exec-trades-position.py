@@ -1,0 +1,8 @@
+#VARIABLES BEGIN HERE
+TICKER = 'TSLA'
+ENTRY = 1000
+EXIT = 1400
+
+#CODE BEGINS HERE
+import trades
+trades.position(TICKER, ENTRY, EXIT)

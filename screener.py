@@ -1,60 +1,55 @@
 import template
 import webbrowser
 import configuration
-import finviz
-from finviz.screener import Screener
-import re
+import wsb
+import stockprofile
+import stocktwits
+import competitors
 
-TICKER = "TSLA"
+def screen(ticker):
+	stock_profiles = []
 
-#CODE BEGINS HERE
-def build_profile(ticker, stock):
-	return {
-		'ticker': ticker,
-		'name': stock['Company'],
-		'pe': stock['P/E'],
-		'eps': stock['EPS (ttm)'],
-		'eps_q': stock['EPS next Q'],
-		'mc': stock['Market Cap'],
-		'forward_pe': stock['Forward P/E'],
-		'income': stock['Income'],
-		'sales': stock['Sales'],
-		'52w': stock['52W Range'],
-		'roe': stock['ROE'],
-		'avg_vol': stock['Avg Volume'],
-		'vol': stock['Volume']
-	}
+	print('Fetching profile...')
+	stock_profiles.append(stockprofile.build_profile(ticker))
 
-stock_profiles = []
+	print('Fetching analyst feed...')
+	price_analysis = stockprofile.get_analyst_feed(ticker)
 
-# Determine what industry the stock is in so we can get competitors for comparison.
-stock = finviz.get_stock(TICKER)
-print(stock)
-stock_profiles.append(build_profile(TICKER, stock))
+	print('Fetching news feed...')
+	news = stockprofile.get_news_feed(ticker)
 
-screener_filter = "ind_" + re.sub(r'\W+', '', stock['Industry']).lower()
+	print('Processing news feed...')
+	rendered_news = stockprofile.parse_news(news)
+	stockprofile.build_bar_charts(news, configuration.DATA_FOLDER+'twits-sentiment.png')
 
-#Get the top five stocks in that industry
-screened_stocks = Screener(filters=[screener_filter], table='Overview', order='-marketcap')
+	print('Fetching WSB submissions...')
+	submissions = wsb.get_hot_submissions()
 
-i = 0
-for screened_stock in screened_stocks:
-	i += 1
+	print('Processing WSB submissions...')
+	wsb_submissions=wsb.process_submissions(submissions, ticker, stock_profiles[0]['name'], configuration.DATA_FOLDER+'wsb-options.png', 
+		configuration.DATA_FOLDER+'wsb-scores.png')
 
-	if screened_stock['Ticker'] == TICKER:
-		continue
+	print('Fetching Stock Twits...')
+	twits = stocktwits.get_messages(ticker)
 
-	stock = finviz.get_stock(screened_stock['Ticker'])
-	stock_profiles.append(build_profile(screened_stock['Ticker'], stock))
+	print('Processing Stock Twits...')
+	rendered_twits = stocktwits.process_messages(twits)
+	stocktwits.build_bar_charts(twits, configuration.DATA_FOLDER+'twits-sentiment.png') 
 
-	if i > 5:
-		break
+	print('Fetching and processing competitors...')
+	stock_profiles.extend(competitors.build_competitors_list(stock_profiles[0]['industry'], ticker))
 
-rendered_html = template.get(configuration.INDUSTRY_SCREENER).render(
-	ticker=TICKER, stocks=stock_profiles)
+	print('Building report...')
 
-with open(configuration.DATA_FOLDER+configuration.INDUSTRY_SCREENER, 'w') as file:
-	file.write(rendered_html)
+	# Rednder the html template with all the data
+	rendered_html = template.get('screener.html').render(
+		ticker=ticker, stocks=stock_profiles, news=rendered_news, price_analysis=price_analysis, wsb=wsb_submissions, twits=rendered_twits)
+	rendered_html.encode('utf8')
 
-webbrowser.open(configuration.DATA_FOLDER+configuration.INDUSTRY_SCREENER, new=2)
+	# Add the html file to data folder
+	with open(configuration.DATA_FOLDER+'screener.html', 'w', encoding='utf8') as file:
+		file.write(rendered_html)
+
+	# Open the html file using the default web browser
+	webbrowser.open(configuration.DATA_FOLDER+'screener.html', new=2)
 
