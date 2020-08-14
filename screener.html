@@ -15,6 +15,7 @@
 	<body>
 		<h1>{{ stocks[0]['ticker'] }} - {{ stocks[0]['price'] }}</h1>
 		<img src="https://finviz.com/chart.ashx?t={{ stocks[0]['ticker'] }}&ty=c&ta=1&p=d&s=l" />
+		<p>{{ stocks[0]['description'] }}</p>
 		<h2>Fundamentals</h2>
 		<table>
 			<tr>
@@ -107,28 +108,15 @@
 				<td>{{ stocks[value]['debt_eq'] }}</td>
 				{% endfor %}
 			</tr>
+			<tr>
+				<td><i>Earnings</i></td>
+				{% for value in range(0,6) %}
+				<td>{{ stocks[value]['Earnings'] }}</td>
+				{% endfor %}
+			</tr>
 		</table>
 		<div style="display: grid; grid-gap:20px;">
-			<div style="grid-row: 1;">
-				<h2>Price Analysis</h2>
-				<table>
-					<tr>
-						<th>Date</th>
-						<th>Analyst</th>
-						<th>Rating</th>
-						<th>Action</th>
-					</tr>
-					{% for price in price_analysis %}
-					<tr>
-						<td>{{ price['date'] }}</td>
-						<td>{{ price['analyst'] }}</td>
-						<td>{{ price['rating'] }}</td>
-						<td>{{ price['price_to'] }}</td>
-					</tr>
-					{% endfor %}
-				</table>
-			</div>
-			<div style="grid-row: 1;">
+						<div style="grid-row: 1;">
 				<h2>Technicals</h2>
 				<table>
 					<tr>
@@ -141,6 +129,18 @@
 						<td><i>Price</i></td>
 						{% for value in range(0,6) %}
 						<td>{{ stocks[value]['price'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>Bid</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['bid'] }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td><i>Ask</i></td>
+						{% for value in range(0,6) %}
+						<td>{{ stocks[value]['ask'] }}</td>
 						{% endfor %}
 					</tr>
 					<tr>
@@ -175,19 +175,32 @@
 					</tr>
 				</table>
 			</div>
+			<div style="grid-row: 1;">
+				<h2>Price Analysis</h2>
+				<table>
+					<tr>
+						<th>Date</th>
+						<th>Analyst</th>
+						<th>Rating</th>
+						<th>Action</th>
+					</tr>
+					{% for price in price_analysis %}
+					<tr>
+						<td>{{ price['date'] }}</td>
+						<td>{{ price['analyst'] }}</td>
+						<td>{{ price['rating'] }}</td>
+						<td>{{ price['price_to'] }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
 		</div>
 		<div style="display: grid;">
 			<div style="grid-row: 1;">
 				<img src='news-sentiment.png' />
 			</div>
 			<div style="grid-row: 1;">
-				<img src='twits-sentiment.png' />
-			</div>
-			<div style="grid-row: 2;">
-				<img src='wsb-scores.png' />
-			</div>
-			<div style="grid-row: 2;">
-				<img src='wsb-options.png' />
+				<img src='quarterly-reports.png' />
 			</div>
 		</div>
 		<h2>News</h2>
@@ -197,19 +210,6 @@
 				<th>Link</th>
 			</tr>
 			{% for article in news %}
-			<tr>
-				<td>{{ article['title'] }}</td>
-				<td><a href="{{ article['link'] }}">{{ article['link'] }}</a></td>
-			</tr>
-			{% endfor %}
-		</table>
-		<h2>WSB Submissions</h2>
-		<table>
-			<tr>
-				<th>Title</th>
-				<th>Link</th>
-			</tr>
-			{% for article in wsb %}
 			<tr>
 				<td>{{ article['title'] }}</td>
 				<td><a href="{{ article['link'] }}">{{ article['link'] }}</a></td>

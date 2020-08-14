@@ -1,9 +1,15 @@
 import finviz
 import matplotlib.pyplot as plt
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import cache
 
 def build_profile(ticker):
-	stock = finviz.get_stock(ticker)
+	def response():
+		return finviz.get_stock(ticker)
+
+	fileCache = cache.get_cache('STOCK')
+	stock = fileCache.get(key=ticker, createfunc=response)
+
 	return {
 		'ticker': ticker,
 		'industry': stock['Industry'],
@@ -27,13 +33,22 @@ def build_profile(ticker):
 		'SMA200' : stock['SMA200'],
 		'price' : stock['Price'],
 		'rsi' : stock['RSI (14)'],
+		'earnings': stock['Earnings']
 	}
 
 def get_news_feed(ticker):
-	return finviz.get_news(ticker)
+	def response():
+		return finviz.get_news(ticker)
+
+	fileCache = cache.get_cache('NEWS')
+	return fileCache.get(key=ticker, createfunc=response)
 
 def get_analyst_feed(ticker):
-	return finviz.get_analyst_price_targets(ticker)
+	def response():
+		return finviz.get_analyst_price_targets(ticker)
+
+	fileCache = cache.get_cache('PRICE_ANALYSIS')
+	return fileCache.get(key=ticker, createfunc=response)
 
 def parse_news(news):
 	rendered_news = []

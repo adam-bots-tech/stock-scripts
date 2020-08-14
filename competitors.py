@@ -5,7 +5,7 @@ from finviz.screener import Screener
 def build_competitors_list(industry, ticker):
 	stock_profiles = []
 	screened_stocks = Screener(filters=["ind_" + re.sub(r'\W+', '', industry).lower()], 
-		table='Overview', order='-marketcap')
+			table='Overview', order='-marketcap')
 
 	i = 0
 	for screened_stock in screened_stocks:
