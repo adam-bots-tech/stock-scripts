@@ -6,6 +6,9 @@ import stocktwits
 import competitors
 import alphaadvanage
 
+def help():
+	print('screen(ticker)')
+
 def screen(ticker):
 	stock_profiles = []
 

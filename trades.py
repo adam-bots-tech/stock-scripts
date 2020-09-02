@@ -1,6 +1,12 @@
 import math
 import json
 
+def help():
+	print('gain(price, gain_perc)')
+	print('loss(price, gain_perc)')
+	print('gain_perc(entry, exit)')
+	print('position(entry, exit, balance)')
+
 def gain(price, gain_perc):
 	return price + (price * gain_perc)
 
