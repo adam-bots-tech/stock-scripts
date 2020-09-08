@@ -13,33 +13,33 @@ def screen(ticker):
 	stock_profiles = []
 
 	print('Fetching profile...')
-	stock_profiles.append(stockprofile.build_profile(ticker))
+	stock_profiles.append(stockprofile.build_profile(ticker, configuration.DATA_FOLDER))
 
 	# Add description and bid ask prices
-	profile = alphaadvanage.add_description_to_profile(stock_profiles[0], ticker)
-	profile = alphaadvanage.add_bid_ask_to_profile(stock_profiles[0], ticker)
+	profile = alphaadvanage.add_description_to_profile(stock_profiles[0], ticker, configuration.ALPHA_API, configuration.DATA_FOLDER)
+	profile = alphaadvanage.add_bid_ask_to_profile(stock_profiles[0], ticker, configuration.ALPHA_API, configuration.DATA_FOLDER)
 
 	print('Fetching analyst feed...')
-	price_analysis = stockprofile.get_analyst_feed(ticker)
+	price_analysis = stockprofile.get_analyst_feed(ticker, configuration.DATA_FOLDER)
 
 	print('Fetching news feed...')
-	news = stockprofile.get_news_feed(ticker)
+	news = stockprofile.get_news_feed(ticker, configuration.DATA_FOLDER)
 
 	print('Processing news feed...')
 	rendered_news = stockprofile.parse_news(news)
 	stockprofile.build_bar_charts(news, configuration.DATA_FOLDER+'news-sentiment.png')
 
 	print('Fetching Stock Twits...')
-	twits = stocktwits.get_messages(ticker)
+	twits = stocktwits.get_messages(ticker, configuration.DATA_FOLDER)
 
 	print('Processing Stock Twits...')
 	rendered_twits = stocktwits.process_messages(twits)
 
 	print('Fetching and processing competitors...')
-	stock_profiles.extend(competitors.build_competitors_list(stock_profiles[0]['industry'], ticker))
+	stock_profiles.extend(competitors.build_competitors_list(stock_profiles[0]['industry'], ticker, configuration.DATA_FOLDER))
 
 	print('Building quarterly finacials chart...')
-	alphaadvanage.create_quarterly_financials_chart(ticker, configuration.DATA_FOLDER+'quarterly-reports.png')
+	alphaadvanage.create_quarterly_financials_chart(ticker, configuration.DATA_FOLDER+'quarterly-reports.png', configuration.ALPHA_API, configuration.DATA_FOLDER)
 
 	print('Building report...')
 
