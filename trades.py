@@ -6,6 +6,7 @@ import technical_analysis
 import brokerage
 import trade
 from datetime import datetime
+import candlestick
 
 def help():
 	print('gain(price, gain_perc)')
@@ -65,6 +66,7 @@ def create(ticker, entry, exit, stop_loss, expiration, notes):
 	b = brokerage.Brokerage(True, configuration.ALPACA_KEY_ID, configuration.ALPACA_SECRET_KEY)
 	t = trade.Trade(datetime.timestamp(datetime.now()), ticker, 0.0, 0.0, 0.0, exit, entry, stop_loss, 0.0, 0.0, 'QUEUED', '', '', 'long', 0, expiration)
 	metadata = json.dumps(technical_analysis.analyze(ticker, b))
+	base64 = candlestick.create_15_minute_base64(ticker, b)
 
 	count = 0
 	for row in j.journal[0].getRows():
@@ -73,5 +75,7 @@ def create(ticker, entry, exit, stop_loss, expiration, notes):
 		else:
 			break
 
-	j.create_queued_trade(count + 1, ticker, 'long', entry, exit, stop_loss, notes, expiration, metadata)
+	j.create_queued_trade(count + 1, ticker, 'long', entry, exit, stop_loss, notes, expiration, metadata, base64)
 	print("Trade Created.")
+
+create('TSLA', 330.0, 340.0, 310.0, 1, 'This is a test')

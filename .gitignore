@@ -2,3 +2,5 @@ __pycache__/
 ../__pycache__/
 configuration.py
 Personal_Stock_Tools.egg-info/
+token-drive.pickle
+token-sheets.pickle
