@@ -5,6 +5,8 @@ import stockprofile
 import stocktwits
 import competitors
 import alphaadvanage
+import technical_analysis
+import brokerage
 
 def help():
 	print('screen(ticker)')
@@ -17,7 +19,6 @@ def screen(ticker):
 
 	# Add description and bid ask prices
 	profile = alphaadvanage.add_description_to_profile(stock_profiles[0], ticker, configuration.ALPHA_API, configuration.DATA_FOLDER)
-	profile = alphaadvanage.add_bid_ask_to_profile(stock_profiles[0], ticker, configuration.ALPHA_API, configuration.DATA_FOLDER)
 
 	print('Fetching analyst feed...')
 	price_analysis = stockprofile.get_analyst_feed(ticker, configuration.DATA_FOLDER)
@@ -28,6 +29,10 @@ def screen(ticker):
 	print('Processing news feed...')
 	rendered_news = stockprofile.parse_news(news)
 	stockprofile.build_bar_charts(news, configuration.DATA_FOLDER+'news-sentiment.png')
+
+	print('Fetching technical analysis...')
+	b = brokerage.Brokerage(True, configuration.ALPACA_KEY_ID, configuration.ALPACA_SECRET_KEY)
+	tech = technical_analysis.analyze(ticker, b)
 
 	print('Fetching Stock Twits...')
 	twits = stocktwits.get_messages(ticker, configuration.DATA_FOLDER)
@@ -45,7 +50,7 @@ def screen(ticker):
 
 	# Rednder the html template with all the data
 	rendered_html = template.get('screener.html').render(
-		ticker=ticker, stocks=stock_profiles, news=rendered_news, price_analysis=price_analysis, twits=rendered_twits)
+		ticker=ticker, stocks=stock_profiles, news=rendered_news, price_analysis=price_analysis, twits=rendered_twits, tech=tech)
 	rendered_html.encode('utf8')
 
 	# Add the html file to data folder
@@ -55,3 +60,4 @@ def screen(ticker):
 	# Open the html file using the default web browser
 	webbrowser.open(configuration.DATA_FOLDER+'screener.html', new=2)
 
+screen('TSLA')
