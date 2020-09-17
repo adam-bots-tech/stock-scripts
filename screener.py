@@ -31,7 +31,7 @@ def screen(ticker):
 	stockprofile.build_bar_charts(news, configuration.DATA_FOLDER+'news-sentiment.png')
 
 	print('Fetching technical analysis...')
-	b = brokerage.Brokerage(True, configuration.ALPACA_KEY_ID, configuration.ALPACA_SECRET_KEY)
+	b = brokerage.Brokerage(True, configuration.ALPACA_KEY_ID, configuration.ALPACA_SECRET_KEY,configuration.DATA_FOLDER)
 	tech = technical_analysis.analyze(ticker, b)
 
 	print('Fetching Stock Twits...')
@@ -59,5 +59,3 @@ def screen(ticker):
 
 	# Open the html file using the default web browser
 	webbrowser.open(configuration.DATA_FOLDER+'screener.html', new=2)
-
-screen('TSLA')
