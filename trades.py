@@ -12,7 +12,7 @@ def help():
 	print('loss(price, gain_perc)')
 	print('gain_perc(entry, exit)')
 	print('position(entry, exit, balance)')
-	print('create(ticker, min_entry, max_entry, exit, stop_loss, expiration, notes)')
+	print('create(ticker, entry, exit, stop_loss, expiration, notes)')
 
 def gain(price, gain_perc):
 	return price + (price * gain_perc)
@@ -59,11 +59,11 @@ def position(entry, exit, balance):
 	loss = amount_spent - (stop_loss * shares)
 	print(f"LOSS: ${round(loss, 2)}")
 
-def create(ticker, min_entry, max_entry, exit, stop_loss, expiration, notes):
+def create(ticker, entry, exit, stop_loss, expiration, notes):
 	j = trade_journal.TradeJournal(configuration.TRADE_JOURNAL_TITLE)
 	j.bootstrap()
 	b = brokerage.Brokerage(True, configuration.ALPACA_KEY_ID, configuration.ALPACA_SECRET_KEY, configuration.DATA_FOLDER)
-	t = trade.Trade(datetime.timestamp(datetime.now()), ticker, 0.0, 0.0, 0.0, exit, min_entry, max_entry, stop_loss, 0.0, 0.0, 'QUEUED', '', '', 'long', 0, expiration)
+	t = trade.Trade(datetime.timestamp(datetime.now()), ticker, 0.0, 0.0, 0.0, exit, entry, stop_loss, 0.0, 0.0, 'QUEUED', '', '', 'long', 0, expiration)
 	metadata = json.dumps(technical_analysis.analyze(ticker, b))
 
 	count = 0
@@ -73,5 +73,5 @@ def create(ticker, min_entry, max_entry, exit, stop_loss, expiration, notes):
 		else:
 			break
 
-	j.create_queued_trade(count + 1, ticker, 'long', min_entry, max_entry, exit, stop_loss, notes, expiration, metadata)
+	j.create_queued_trade(count + 1, ticker, 'long', entry, exit, stop_loss, notes, expiration, metadata)
 	print("Trade Created.")
