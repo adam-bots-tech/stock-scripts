@@ -129,7 +129,8 @@
 						<td></td>
 						<td>CLOSING PRICE</td>
 						<td>MACD</td>
-						<td>RSI</td>
+						<td>RSI 10</td>
+						<td>RSI 250</td>
 						<td>SMA 50 CLOSE</td>
 						<td>SMA 100 CLOSE</td>
 						<td>SMA 200 CLOSE</td>
@@ -139,20 +140,24 @@
 						<td>Last 1 Minute</td>
 						<td>{{ tech['1min']['open'] }}/{{ tech['1min']['close'] }}</td>
 						<td>{{ tech['1min']['macd'] }}</td>
-						<td>{{ tech['1min']['rsi'] }}</td>
+						<td>{{ tech['1min']['rsi_10'] }}</td>
+						<td>{{ tech['1min']['rsi_250'] }}</td>
 						<td>{{ tech['1min']['sma50'] }}</td>
 						<td>{{ tech['1min']['sma100']}}</td>
 						<td>{{ tech['1min']['sma200'] }}</td>
+						<td>{{ tech['1min']['atr_10'] }}</td>
 						<td>{{ tech['1min']['volume'] }}</td>
 					</tr>
 					<tr>
 						<td>Last 15 minutes</td>
 						<td>{{ tech['1min']['open'] }}/{{ tech['15min']['close'] }}</td>
 						<td>{{ tech['15min']['macd'] }}</td>
-						<td>{{ tech['15min']['rsi'] }}</td>
+						<td>{{ tech['1min']['rsi_10'] }}</td>
+						<td>{{ tech['1min']['rsi_250'] }}</td>
 						<td>{{ tech['15min']['sma50'] }}</td>
 						<td>{{ tech['15min']['sma100'] }}</td>
 						<td>{{ tech['15min']['sma200'] }}</td>
+						<td>{{ tech['1min']['atr_10'] }}</td>
 						<td>{{ tech['15min']['volume'] }}</td>
 					</tr>
 				</table>
