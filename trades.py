@@ -63,7 +63,7 @@ def create(ticker, entry, exit, stop_loss, expiration, sell_at_end_of_day, notes
 	j = trade_journal.TradeJournal(configuration.TRADE_JOURNAL_TITLE)
 	j.bootstrap()
 	b = brokerage.Brokerage(True, configuration.ALPACA_KEY_ID, configuration.ALPACA_SECRET_KEY, configuration.DATA_FOLDER)
-	t = trade.Trade(datetime.timestamp(datetime.now()), ticker, 0.0, 0.0, 0.0, exit, entry, stop_loss, 0.0, 0.0, 'QUEUED', '', '', 'long', 0, expiration)
+	t = trade.Trade(datetime.timestamp(datetime.now()), ticker, 0.0, 0.0, 0.0, exit, entry, stop_loss, 0.0, 0.0, 'QUEUED', '', '', 'long', 0, expiration, sell_at_end_of_day)
 	metadata = json.dumps(technical_analysis.analyze(ticker, b))
 
 	count = 0
